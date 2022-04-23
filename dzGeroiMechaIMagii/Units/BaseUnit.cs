@@ -36,8 +36,6 @@ namespace dzTmaSvet.Units
         private protected int hp { get; set; }
         private protected Tage tage { get; set; } // ноль - мечник, 1 - стрелок, 2 - маг, 3 - дракон
         private protected string name { get; set; }
-
-        //protected abstract int CommandSize(Level level);
         private protected int rndAttack() => (new Random().Next(100)) % (maxAtack - minAtack) + minAtack;
 
         public int CommandSize(Level level)
@@ -60,11 +58,16 @@ namespace dzTmaSvet.Units
             }
         }
 
+        public void setHp(int hp) => this.hp += hp;
+
+        public int getHp => hp;
+        public Tage getTage => tage;
+        public string getName => name;
         public string toString() =>
-            name +
-            ": hp= " + this.hp + 
-            ", attack= " + this.minAtack + 
-            "/" + this.maxAtack;
+                    name +
+                    ": hp= " + this.hp + 
+                    ", attack= " + this.minAtack + 
+                    "/" + this.maxAtack;
 
         public int Attack()
         {

@@ -8,9 +8,9 @@ using dzTmaSvet.Units.FractionsAndUnits.LightUnits;
 
 namespace dzTmaSvet.Units.FractionsAndUnits
 {
-    internal class DarkFraction
+    static internal class DarkFraction
     {
-        static void createCommand(List<BaseUnit> command, Level level)
+        static public List<BaseUnit> createCommand(List<BaseUnit> command, Level level)
         {
             int commandSize = CommandSize(level);
             for (int i = 0; i < commandSize; i++)
@@ -52,6 +52,7 @@ namespace dzTmaSvet.Units.FractionsAndUnits
                         break;
                 }
             }
+            return command;
         }
 
         static int CommandSize(Level level)
