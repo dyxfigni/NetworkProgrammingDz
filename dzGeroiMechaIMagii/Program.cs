@@ -2,8 +2,7 @@
 
 using dzTmaSvet;
 
-
-Gameplay game = new Gameplay();
+var game = new Gameplay();
 Console.WriteLine("\"+---------------------------------Правила!!!------------------------------------+\" " +
                   "\"|Вампиры и рыцари - вербуют, ангелы и духи - дурачат, архиангел и ведьма - лечат|\"" +
                   " \"+-------------------------------------------------------------------------------+\"");
@@ -20,4 +19,3 @@ while (game.CommandChoice < 1 || game.CommandChoice > 2)
 game.buildCommand();
 game.printCommand();
 game.Fight();
-    

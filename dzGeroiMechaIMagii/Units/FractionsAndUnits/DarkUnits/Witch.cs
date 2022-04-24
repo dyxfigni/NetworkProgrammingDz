@@ -1,36 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace dzTmaSvet.Units.FractionsAndUnits.DarkUnits;
 
-namespace dzTmaSvet.Units.FractionsAndUnits.DarkUnits
+internal class Witch : BaseUnit
 {
-    internal class Witch : BaseUnit
+    public Witch()
     {
-        public Witch()
-        {
-            hp = 70;
-            minAtack = 20;
-            maxAtack = 25;
-            name = "Witch";
-            tage = Tage.healer;
-        }
-        public int Attack()
-        {
-            Console.WriteLine("Колдую!!");
-            return rndAttack();
-        }
+        hp = 70;
+        minAtack = 20;
+        maxAtack = 25;
+        name = "Witch";
+        tage = Tage.healer;
+    }
 
-        public bool takeDamage(int damage)
-        {
-            hp -= damage;
-            return hp > 0;
-        }
+    public int Attack()
+    {
+        Console.WriteLine("Колдую!!");
+        return rndAttack();
+    }
 
-        public int Heal()
-        {
-            return new Random().Next(500) % 10;
-        }
+    public bool takeDamage(int damage)
+    {
+        hp -= damage;
+        return hp > 0;
+    }
+
+    public int Heal()
+    {
+        return new Random().Next(500) % 10;
     }
 }

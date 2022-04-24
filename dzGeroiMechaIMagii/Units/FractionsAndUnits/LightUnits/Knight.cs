@@ -1,37 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace dzTmaSvet.Units.FractionsAndUnits.LightUnits;
 
-namespace dzTmaSvet.Units.FractionsAndUnits.LightUnits
+internal class Knight : BaseUnit
 {
-    internal class Knight : BaseUnit
+    public Knight()
     {
-        public Knight()
-        {
-            hp = 100;
-            minAtack = 12;
-            maxAtack = 17;
-            name = "Knight";
-            tage = Tage.spy;
-        }
+        hp = 100;
+        minAtack = 12;
+        maxAtack = 17;
+        name = "Knight";
+        tage = Tage.spy;
+    }
 
-        public int Attack()
-        {
-            Console.WriteLine("Бью!!");
-            return rndAttack();
-        }
+    public int Attack()
+    {
+        Console.WriteLine("Бью!!");
+        return rndAttack();
+    }
 
-        public int Heal()
-        {
-            return 0;
-        }
+    public int Heal()
+    {
+        return 0;
+    }
 
-        public  bool takeDamage(int damage)
-        {
-            hp -= damage;
-            return hp > 0;
-        }
+    public bool takeDamage(int damage)
+    {
+        hp -= damage;
+        return hp > 0;
     }
 }
