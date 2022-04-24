@@ -2,29 +2,30 @@
 
 internal class Angel : BaseUnit
 {
+    /// <inheritdoc />
     private Angel()
     {
-        hp = 100;
-        minAtack = 12;
-        maxAtack = 17;
-        name = "Angel";
-        tage = Tage.tricker;
+        Hp = 100;
+        MinAtack = 12;
+        MaxAtack = 17;
+        Name = "Angel";
+        Tage = Tage.Tricker;
     }
+
+    public static Angel Instance { get; } = new Angel();
+
 
     public override int Attack()
     {
         Console.WriteLine("Колдую!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return new Random().Next() % 0;
-    }
+    public override int Heal() => new Random().Next() % 0;
 }

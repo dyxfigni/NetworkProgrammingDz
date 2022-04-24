@@ -2,29 +2,28 @@
 
 internal class Zombie : BaseUnit
 {
-    public Zombie()
+    private Zombie()
     {
-        hp = 100;
-        minAtack = 12;
-        maxAtack = 17;
-        name = "Zombie";
-        tage = Tage.avarage;
+        Hp = 100;
+        MinAtack = 12;
+        MaxAtack = 17;
+        Name = "Zombie";
+        Tage = Tage.Avarage;
     }
+
+    public static Zombie Instance { get; } = new Zombie();
 
     public override int Attack()
     {
         Console.WriteLine("Бью!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 }

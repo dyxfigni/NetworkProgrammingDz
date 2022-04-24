@@ -2,29 +2,28 @@
 
 internal class Knight : BaseUnit
 {
-    public Knight()
+    /// <inheritdoc />
+    private Knight()
     {
-        hp = 100;
-        minAtack = 12;
-        maxAtack = 17;
-        name = "Knight";
-        tage = Tage.spy;
+        Hp = 100;
+        MinAtack = 12;
+        MaxAtack = 17;
+        Name = "Knight";
+        Tage = Tage.Spy;
     }
+    public static Knight Instance { get; } = new Knight();
 
     public override int Attack()
     {
         Console.WriteLine("Бью!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 }

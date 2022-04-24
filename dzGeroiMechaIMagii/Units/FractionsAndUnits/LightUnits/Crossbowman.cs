@@ -2,29 +2,28 @@
 
 internal class Crossbowman : BaseUnit
 {
-    public Crossbowman()
+    private Crossbowman()
     {
-        hp = 100;
-        minAtack = 12;
-        maxAtack = 17;
-        name = "Crossbowman";
-        tage = Tage.avarage;
+        Hp = 100;
+        MinAtack = 12;
+        MaxAtack = 17;
+        Name = "Crossbowman";
+        Tage = Tage.Avarage;
     }
+
+    public static Crossbowman Instance { get; } = new Crossbowman();
 
     public override int Attack()
     {
         Console.WriteLine("Стерляю!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 }

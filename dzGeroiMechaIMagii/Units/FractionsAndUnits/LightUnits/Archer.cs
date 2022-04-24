@@ -2,29 +2,28 @@
 
 internal class Archer : BaseUnit
 {
-    public Archer()
+    private Archer()
     {
-        hp = 80;
-        minAtack = 16;
-        maxAtack = 23;
-        name = "Archer";
-        tage = Tage.avarage;
+        Hp = 80;
+        MinAtack = 16;
+        MaxAtack = 23;
+        Name = "Archer";
+        Tage = Tage.Avarage;
     }
+    
+    public static Archer Instance { get; } = new Archer();
 
     public override int Attack()
     {
         Console.WriteLine("Стреляю!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 }

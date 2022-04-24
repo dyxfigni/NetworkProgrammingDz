@@ -2,47 +2,46 @@
 
 internal enum Level
 {
-    LEVEL_EASY,
-    LEVEL_MEDIUM,
-    LEVEL_HARD
+    LevelEasy,
+    LevelMedium,
+    LevelHard
 }
 
 internal enum Tage
 {
-    avarage,
-    healer,
-    spy,
-    tricker,
-    powerfull
+    Avarage,
+    Healer,
+    Spy,
+    Tricker,
+    Powerfull
 }
 
 internal interface IUnit
 {
     public int Attack();
-    public bool takeDamage(int damage);
+    public bool TakeDamage(int damage);
     public int Heal();
 }
 
 internal abstract class BaseUnit : IUnit
 {
-    
-    private protected int minAtack { get; set; }
-    private protected int maxAtack { get; set; }
-    private protected int hp { get; set; }
-    private protected Tage tage { get; set; } // ноль - мечник, 1 - стрелок, 2 - маг, 3 - дракон
-    private protected string name { get; set; }
-
-    public int getHp => hp;
-    public Tage getTage => tage;
-    public string getName => name;
+    private protected int MinAtack { get; set; }
+    private protected int MaxAtack { get; set; }
+    private protected int Hp { get; set; }
+    private protected Tage Tage { get; set; } // ноль - мечник, 1 - стрелок, 2 - маг, 3 - дракон
+    private protected string? Name { get; set; }
+     
+    public int GetHp => Hp;
+    public Tage GetTage => Tage;
+    public string? GetName => Name;
 
     public abstract int Attack();
     public abstract int Heal();
-    public abstract bool takeDamage(int damage);
+    public abstract bool TakeDamage(int damage);
 
-    private protected int rndAttack()
+    private protected int RndAttack()
     {
-        return new Random().Next(100) % (maxAtack - minAtack) + minAtack;
+        return new Random().Next(100) % (MaxAtack - MinAtack) + MinAtack;
     }
 
     public int CommandSize(Level level)
@@ -51,13 +50,13 @@ internal abstract class BaseUnit : IUnit
 
         switch (level)
         {
-            case Level.LEVEL_EASY:
+            case Level.LevelEasy:
                 return random % 5 + 5;
                 break;
-            case Level.LEVEL_MEDIUM:
+            case Level.LevelMedium:
                 return random % 5 + 10;
                 break;
-            case Level.LEVEL_HARD:
+            case Level.LevelHard:
                 return random % 5 + 20;
                 break;
             default:
@@ -65,16 +64,16 @@ internal abstract class BaseUnit : IUnit
         }
     }
 
-    public void setHp(int hp)
+    public void SetHp(int hp)
     {
-        this.hp += hp;
+        this.Hp += hp;
     }
 
-    public string toString()
+    public string ToString()
     {
-        return name +
-               ": hp= " + hp +
-               ", attack= " + minAtack +
-               "/" + maxAtack;
+        return Name +
+               ": hp= " + Hp +
+               ", attack= " + MinAtack +
+               "/" + MaxAtack;
     }
 }

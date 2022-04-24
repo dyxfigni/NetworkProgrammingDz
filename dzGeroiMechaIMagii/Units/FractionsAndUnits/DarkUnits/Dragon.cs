@@ -2,29 +2,27 @@
 
 internal class Dragon : BaseUnit
 {
-    public Dragon()
+    private Dragon()
     {
-        hp = 150;
-        minAtack = 10;
-        maxAtack = 40;
-        name = "Dragon";
-        tage = Tage.powerfull;
+        Hp = 150;
+        MinAtack = 10;
+        MaxAtack = 40;
+        Name = "Dragon";
+        Tage = Tage.Powerfull;
     }
+    public static Dragon Instance { get; } = new Dragon();
 
     public override int Attack()
     {
         Console.WriteLine("Испепеляю!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 }

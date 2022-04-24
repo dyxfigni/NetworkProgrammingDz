@@ -4,7 +4,7 @@ namespace dzTmaSvet.Units.FractionsAndUnits;
 
 internal static class LightFraction
 {
-    public static List<BaseUnit> createCommand(List<BaseUnit> command, Level level)
+    public static List<BaseUnit> CreateCommand(List<BaseUnit> command, Level level)
     {
         var commandSize = CommandSize(level);
         for (var i = 0; i < commandSize; i++)
@@ -14,10 +14,10 @@ internal static class LightFraction
                     switch (new Random().Next(10) % 2)
                     {
                         case 0:
-                            command.Add(new Archer());
+                            command.Add(Archer.Instance);
                             break;
                         case 1:
-                            command.Add(new Crossbowman());
+                            command.Add(Crossbowman.Instance);
                             break;
                     }
 
@@ -26,10 +26,10 @@ internal static class LightFraction
                     switch (new Random().Next(10) % 2)
                     {
                         case 0:
-                            command.Add(new Knight());
+                            command.Add(Knight.Instance);
                             break;
                         case 1:
-                            command.Add(new Griphon());
+                            command.Add(Griphon.Instance);
                             break;
                     }
 
@@ -38,10 +38,10 @@ internal static class LightFraction
                     switch (new Random().Next(10) % 2)
                     {
                         case 0:
-                            command.Add(Angel.CreateInstance());
+                            command.Add(Angel.Instance);
                             break;
                         case 1:
-                            command.Add(new ArchAngel());
+                            command.Add(ArchAngel.Instance);
                             break;
                     }
 
@@ -57,13 +57,13 @@ internal static class LightFraction
 
         switch (level)
         {
-            case Level.LEVEL_EASY:
+            case Level.LevelEasy:
                 return random % 5 + 5;
                 break;
-            case Level.LEVEL_MEDIUM:
+            case Level.LevelMedium:
                 return random % 5 + 10;
                 break;
-            case Level.LEVEL_HARD:
+            case Level.LevelHard:
                 return random % 5 + 20;
                 break;
             default:

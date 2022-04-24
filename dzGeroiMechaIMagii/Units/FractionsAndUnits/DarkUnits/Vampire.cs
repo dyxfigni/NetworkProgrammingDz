@@ -2,29 +2,28 @@
 
 internal class Vampire : BaseUnit
 {
-    public Vampire()
+    private Vampire()
     {
-        hp = 50;
-        minAtack = 28;
-        maxAtack = 32;
-        name = "Vampire";
-        tage = Tage.spy;
+        Hp = 50;
+        MinAtack = 28;
+        MaxAtack = 32;
+        Name = "Vampire";
+        Tage = Tage.Spy;
     }
+
+    public static Vampire Instance { get; } = new Vampire();
 
     public override int Attack()
     {
         Console.WriteLine("Кусаю!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 }

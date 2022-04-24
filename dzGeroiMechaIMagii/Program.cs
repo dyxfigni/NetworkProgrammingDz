@@ -16,6 +16,6 @@ while (game.CommandChoice < 1 || game.CommandChoice > 2)
     game.CommandChoice = int.Parse(Console.ReadLine());
 }
 
-game.buildCommand();
-game.printCommand();
+game.BuildCommand();
+game.PrintCommand();
 game.Fight();

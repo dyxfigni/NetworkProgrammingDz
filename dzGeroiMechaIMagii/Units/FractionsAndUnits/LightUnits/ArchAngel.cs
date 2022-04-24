@@ -2,29 +2,29 @@
 
 internal class ArchAngel : BaseUnit
 {
-    public ArchAngel()
+    /// <inheritdoc />
+    private ArchAngel()
     {
-        hp = 100;
-        minAtack = 12;
-        maxAtack = 17;
-        name = "ArchAngel";
-        tage = Tage.healer;
+        Hp = 100;
+        MinAtack = 12;
+        MaxAtack = 17;
+        Name = "ArchAngel";
+        Tage = Tage.Healer;
     }
+
+    public static BaseUnit Instance { get; } = new ArchAngel();
 
     public override int Attack()
     {
         Console.WriteLine("Освещаю!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return new Random().Next(1000) % 30;
-    }
+    public override int Heal() => new Random().Next(1000) % 30;
 }

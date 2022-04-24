@@ -4,7 +4,7 @@ namespace dzTmaSvet.Units.FractionsAndUnits;
 
 internal static class DarkFraction
 {
-    public static List<BaseUnit> createCommand(List<BaseUnit> command, Level level)
+    public static List<BaseUnit> CreateCommand(List<BaseUnit> command, Level level)
     {
         var commandSize = CommandSize(level);
         for (var i = 0; i < commandSize; i++)
@@ -14,10 +14,10 @@ internal static class DarkFraction
                     switch (new Random().Next(10) % 2)
                     {
                         case 0:
-                            command.Add(new Skeleton());
+                            command.Add(Skeleton.Instance);
                             break;
                         case 1:
-                            command.Add(new Zombie());
+                            command.Add(Zombie.Instance);
                             break;
                     }
 
@@ -26,10 +26,10 @@ internal static class DarkFraction
                     switch (new Random().Next(10) % 2)
                     {
                         case 0:
-                            command.Add(new Witch());
+                            command.Add(Witch.Instance);
                             break;
                         case 1:
-                            command.Add(new Vampire());
+                            command.Add(Vampire.Instance);
                             break;
                     }
 
@@ -38,16 +38,14 @@ internal static class DarkFraction
                     switch (new Random().Next(10) % 2)
                     {
                         case 0:
-                            command.Add(new Ghost());
+                            command.Add(Ghost.Instance);
                             break;
                         case 1:
-                            command.Add(new Dragon());
+                            command.Add(Dragon.Instance);
                             break;
                     }
-
                     break;
             }
-
         return command;
     }
 
@@ -57,13 +55,13 @@ internal static class DarkFraction
 
         switch (level)
         {
-            case Level.LEVEL_EASY:
+            case Level.LevelEasy:
                 return random % 5 + 5;
                 break;
-            case Level.LEVEL_MEDIUM:
+            case Level.LevelMedium:
                 return random % 5 + 10;
                 break;
-            case Level.LEVEL_HARD:
+            case Level.LevelHard:
                 return random % 5 + 20;
                 break;
             default:

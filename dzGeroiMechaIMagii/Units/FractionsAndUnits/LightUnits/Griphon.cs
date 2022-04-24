@@ -2,29 +2,28 @@
 
 internal class Griphon : BaseUnit
 {
-    public Griphon()
+    private Griphon()
     {
-        hp = 100;
-        minAtack = 12;
-        maxAtack = 17;
-        name = "Griphon";
-        tage = Tage.powerfull;
+        Hp = 100;
+        MinAtack = 12;
+        MaxAtack = 17;
+        Name = "Griphon";
+        Tage = Tage.Powerfull;
     }
+
+    public static Griphon Instance { get; } = new Griphon();
 
     public override int Attack()
     {
         Console.WriteLine("Кричу!!");
-        return rndAttack();
+        return RndAttack();
+    }
+    public override int Heal() => 0;
+
+    public override bool TakeDamage(int damage)
+    {
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override bool takeDamage(int damage)
-    {
-        hp -= damage;
-        return hp > 0;
-    }
-
-    public override int Heal()
-    {
-        return 0;
-    }
 }

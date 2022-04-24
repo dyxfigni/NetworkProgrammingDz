@@ -2,29 +2,28 @@
 
 internal class Witch : BaseUnit
 {
-    public Witch()
+    private Witch()
     {
-        hp = 70;
-        minAtack = 20;
-        maxAtack = 25;
-        name = "Witch";
-        tage = Tage.healer;
+        Hp = 70;
+        MinAtack = 20;
+        MaxAtack = 25;
+        Name = "Witch";
+        Tage = Tage.Healer;
     }
+
+    public static Witch Instance { get; } = new Witch();
 
     public override int Attack()
     {
         Console.WriteLine("Колдую!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return new Random().Next(500) % 10;
-    }
+    public override int Heal() => new Random().Next(500) % 10;
 }

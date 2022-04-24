@@ -2,29 +2,28 @@
 
 internal class Skeleton : BaseUnit
 {
-    public Skeleton()
+    private Skeleton()
     {
-        hp = 100;
-        minAtack = 10;
-        maxAtack = 15;
-        name = "Skeleton";
-        tage = Tage.avarage;
+        Hp = 100;
+        MinAtack = 10;
+        MaxAtack = 15;
+        Name = "Skeleton";
+        Tage = Tage.Avarage;
     }
+
+    public static Skeleton Instance { get; } = new Skeleton();
 
     public override int Attack()
     {
         Console.WriteLine("Стреляю!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 }

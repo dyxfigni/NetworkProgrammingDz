@@ -8,11 +8,11 @@ namespace dzTmaSvet;
 
 internal class Gameplay
 {
-    private List<BaseUnit> command1;
-    private List<BaseUnit> command2;
+    private List<BaseUnit> _command1;
+    private List<BaseUnit> _command2;
 
-    private BaseUnit unit1;
-    private BaseUnit unit2;
+    private BaseUnit _unit1;
+    private BaseUnit _unit2;
 
     public int CommandChoice { get; set; }
 
@@ -21,55 +21,55 @@ internal class Gameplay
         return new Random().Next(0, 100) / (double)new Random().Next(0, 100);
     }
 
-    public void buildCommand()
+    public void BuildCommand()
     {
-        var level = Level.LEVEL_EASY;
-        command1 = new List<BaseUnit>();
-        command2 = new List<BaseUnit>();
+        var level = Level.LevelEasy;
+        _command1 = new List<BaseUnit>();
+        _command2 = new List<BaseUnit>();
         switch (CommandChoice)
         {
             case 1:
-                command1 = DarkFraction.createCommand(command1, level);
-                command2 = LightFraction.createCommand(command2, level);
+                _command1 = DarkFraction.CreateCommand(_command1, level);
+                _command2 = LightFraction.CreateCommand(_command2, level);
                 break;
             case 2:
-                command1 = DarkFraction.createCommand(command1, level);
-                command2 = LightFraction.createCommand(command2, level);
+                _command1 = DarkFraction.CreateCommand(_command1, level);
+                _command2 = LightFraction.CreateCommand(_command2, level);
                 break;
             default:
-                command1 = DarkFraction.createCommand(command1, level);
-                command2 = LightFraction.createCommand(command2, level);
+                _command1 = DarkFraction.CreateCommand(_command1, level);
+                _command2 = LightFraction.CreateCommand(_command2, level);
                 break;
         }
     }
 
-    public void printCommand()
+    public void PrintCommand()
     {
         Console.WriteLine("Ваша команда:          ");
 
-        foreach (BaseUnit unit in command1) Console.WriteLine(unit.getName);
+        foreach (BaseUnit unit in _command1) Console.WriteLine(unit.GetName);
 
         Console.WriteLine("\n\nКоманда противника!!!!!");
 
-        foreach (BaseUnit unit in command2) Console.WriteLine(unit.getName);
+        foreach (BaseUnit unit in _command2) Console.WriteLine(unit.GetName);
     }
 
     public void Fight()
     {
         Console.WriteLine();
-        while (command1.Count > 0 && command2.Count > 0)
+        while (_command1.Count > 0 && _command2.Count > 0)
         {
             Console.WriteLine("Атаковать(1) пропустить(2)" +
                               "одурачить(3)" +
                               "завербовать(4)" +
                               "вылечить(5)");
-            unit1 = command1.First();
-            command1.Remove(command1.First());
+            _unit1 = _command1.First();
+            _command1.Remove(_command1.First());
 
-            unit2 = command2.First();
-            command2.Remove(command2.First());
+            _unit2 = _command2.First();
+            _command2.Remove(_command2.First());
 
-            Console.WriteLine($"{unit1.getName} против {unit2.getName}");
+            Console.WriteLine($"{_unit1.GetName} против {_unit2.GetName}");
             double skipChance = Chance();
             Console.WriteLine($"Шанс на пропуск: {(int)skipChance*100}%");
             int choice = int.Parse(Console.ReadLine());
@@ -90,7 +90,7 @@ internal class Gameplay
                     {
                         Thread.Sleep(400);
                         Console.WriteLine("Успех!");
-                        command1.Add(unit1);
+                        _command1.Add(_unit1);
                         Console.WriteLine();
                     }
                     else
@@ -103,7 +103,7 @@ internal class Gameplay
                     break;
 
                 case 3:
-                    if (unit1.getTage == Tage.tricker)
+                    if (_unit1.GetTage == Tage.Tricker)
                     {
                         var chanceTrick = Chance();
                         Console.WriteLine($"Шанс: {chanceTrick}");
@@ -112,9 +112,9 @@ internal class Gameplay
                             Thread.Sleep(400);
                             Console.WriteLine("Успех! Вы одурачили противника");
 
-                            command2.Add(unit2);
-                            unit2 = command2.First();
-                            command2.Remove(command2.First());
+                            _command2.Add(_unit2);
+                            _unit2 = _command2.First();
+                            _command2.Remove(_command2.First());
 
                             Console.WriteLine();
                         }
@@ -131,7 +131,7 @@ internal class Gameplay
                     break;
 
                 case 4:
-                    if (unit1.getTage == Tage.spy)
+                    if (_unit1.GetTage == Tage.Spy)
                     {
                         double recruitChance = Chance();
                         Console.WriteLine("Шанс: " + recruitChance);
@@ -139,8 +139,8 @@ internal class Gameplay
                         {
                             Thread.Sleep(400);
                             Console.WriteLine("Успех!!! Вы завербовали в свои ряды: "
-                                              + unit2.getName);
-                            command1.Add(unit2);
+                                              + _unit2.GetName);
+                            _command1.Add(_unit2);
                             Console.WriteLine();
                         }
                         else
@@ -152,7 +152,7 @@ internal class Gameplay
                             {
                                 Thread.Sleep(400);
                                 Console.WriteLine("Вы сбежали!!!");
-                                command1.Add(unit1);
+                                _command1.Add(_unit1);
                                 Console.WriteLine();
                             }
                             else
@@ -171,7 +171,7 @@ internal class Gameplay
                                 {
                                     Thread.Sleep(400);
                                     Console.WriteLine(" Вы не смогли дать отпор противнику и попали в плен ");
-                                    command2.Add(unit1);
+                                    _command2.Add(_unit1);
                                     Console.WriteLine();
                                 }
                             }
@@ -182,21 +182,21 @@ internal class Gameplay
                     break;
 
                 case 5:
-                    if (unit1.getTage == Tage.healer)
+                    if (_unit1.GetTage == Tage.Healer)
                     {
                         double healChance = Chance();
                         Console.WriteLine("Шанс на лечение: " + healChance);
                         if (healChance > Chance())
                         {
                             Thread.Sleep(400);
-                            var healer = unit1;
+                            var healer = _unit1;
                             var countHeal = healer.Heal();
-                            unit1 = command1.First();
-                            command1.Remove(command1.First());
-                            unit1.setHp(countHeal);
-                            Console.WriteLine($" Вы вылечили {unit1.getName} на {countHeal} единиц!!!");
-                            command1.Add(healer);
-                            command1.Add(unit1);
+                            _unit1 = _command1.First();
+                            _command1.Remove(_command1.First());
+                            _unit1.SetHp(countHeal);
+                            Console.WriteLine($" Вы вылечили {_unit1.GetName} на {countHeal} единиц!!!");
+                            _command1.Add(healer);
+                            _command1.Add(_unit1);
                             Console.WriteLine();
                         }
                         else
@@ -214,7 +214,7 @@ internal class Gameplay
             }
         }
 
-        if (command1.Count > 0)
+        if (_command1.Count > 0)
             Console.WriteLine("Вы проиграли");
         else
             Console.WriteLine("Противник проиграл!");
@@ -222,30 +222,30 @@ internal class Gameplay
 
     public void Attack()
     {
-        int damageFromU1 = unit1.Attack();
-        int damageFromU2 = unit2.Attack();
-        if (unit1.takeDamage(damageFromU2))
+        int damageFromU1 = _unit1.Attack();
+        int damageFromU2 = _unit2.Attack();
+        if (_unit1.TakeDamage(damageFromU2))
         {
-            command1.Add(unit1);
-            if (unit2.takeDamage(damageFromU1))
+            _command1.Add(_unit1);
+            if (_unit2.TakeDamage(damageFromU1))
             {
-                command1.Add(unit1);
-                command2.Add(unit2);
+                _command1.Add(_unit1);
+                _command2.Add(_unit2);
             }
             else
             {
-                command1.Add(unit1);
-                Console.WriteLine($"{unit2.getName} умер!!!");
+                _command1.Add(_unit1);
+                Console.WriteLine($"{_unit2.GetName} умер!!!");
             }
         }
         else
         {
-            command2.Add(unit2);
-            Console.WriteLine($" Ваш герой {unit1.getName} умер...");
+            _command2.Add(_unit2);
+            Console.WriteLine($" Ваш герой {_unit1.GetName} умер...");
         }
 
-        Console.WriteLine($"{unit1.getName} отнял {damageFromU1}" +
-                          $", a {unit2.getName} {damageFromU2}");
+        Console.WriteLine($"{_unit1.GetName} отнял {damageFromU1}" +
+                          $", a {_unit2.GetName} {damageFromU2}");
         Console.WriteLine();
     }
 }

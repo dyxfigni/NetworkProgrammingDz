@@ -2,29 +2,28 @@
 
 internal class Ghost : BaseUnit
 {
-    public Ghost()
+    private Ghost()
     {
-        hp = 20;
-        minAtack = 14;
-        maxAtack = 35;
-        name = "Ghost";
-        tage = Tage.tricker;
+        Hp = 20;
+        MinAtack = 14;
+        MaxAtack = 35;
+        Name = "Ghost";
+        Tage = Tage.Tricker;
     }
+
+    public static Ghost Instance { get; } = new Ghost();
 
     public override int Attack()
     {
         Console.WriteLine("Пугаю!!");
-        return rndAttack();
+        return RndAttack();
     }
 
-    public override bool takeDamage(int damage)
+    public override bool TakeDamage(int damage)
     {
-        hp -= damage;
-        return hp > 0;
+        Hp -= damage;
+        return Hp > 0;
     }
 
-    public override int Heal()
-    {
-        return 0;
-    }
+    public override int Heal() => 0;
 }
