@@ -11,19 +11,19 @@ internal class Zombie : BaseUnit
         tage = Tage.avarage;
     }
 
-    public int Attack()
+    public override int Attack()
     {
         Console.WriteLine("Бью!!");
         return rndAttack();
     }
 
-    public bool takeDamage(int damage)
+    public override bool takeDamage(int damage)
     {
         hp -= damage;
         return hp > 0;
     }
 
-    public int Heal()
+    public override int Heal()
     {
         return 0;
     }

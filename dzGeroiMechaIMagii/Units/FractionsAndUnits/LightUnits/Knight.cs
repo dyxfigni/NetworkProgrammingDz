@@ -11,18 +11,18 @@ internal class Knight : BaseUnit
         tage = Tage.spy;
     }
 
-    public int Attack()
+    public override int Attack()
     {
         Console.WriteLine("Бью!!");
         return rndAttack();
     }
 
-    public int Heal()
+    public override int Heal()
     {
         return 0;
     }
 
-    public bool takeDamage(int damage)
+    public override bool takeDamage(int damage)
     {
         hp -= damage;
         return hp > 0;

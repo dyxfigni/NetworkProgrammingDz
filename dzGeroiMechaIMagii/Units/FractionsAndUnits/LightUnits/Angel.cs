@@ -2,7 +2,7 @@
 
 internal class Angel : BaseUnit
 {
-    public Angel()
+    private Angel()
     {
         hp = 100;
         minAtack = 12;
@@ -11,19 +11,19 @@ internal class Angel : BaseUnit
         tage = Tage.tricker;
     }
 
-    public int Attack()
+    public override int Attack()
     {
         Console.WriteLine("Колдую!!");
         return rndAttack();
     }
 
-    public bool takeDamage(int damage)
+    public override bool takeDamage(int damage)
     {
         hp -= damage;
         return hp > 0;
     }
 
-    private int Heal()
+    public override int Heal()
     {
         return new Random().Next() % 0;
     }

@@ -38,7 +38,7 @@ internal static class LightFraction
                     switch (new Random().Next(10) % 2)
                     {
                         case 0:
-                            command.Add(new Angel());
+                            command.Add(Angel.CreateInstance());
                             break;
                         case 1:
                             command.Add(new ArchAngel());

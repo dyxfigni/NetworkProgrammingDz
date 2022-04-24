@@ -11,19 +11,19 @@ internal class Witch : BaseUnit
         tage = Tage.healer;
     }
 
-    public int Attack()
+    public override int Attack()
     {
         Console.WriteLine("Колдую!!");
         return rndAttack();
     }
 
-    public bool takeDamage(int damage)
+    public override bool takeDamage(int damage)
     {
         hp -= damage;
         return hp > 0;
     }
 
-    public int Heal()
+    public override int Heal()
     {
         return new Random().Next(500) % 10;
     }
