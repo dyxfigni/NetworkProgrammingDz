@@ -29,20 +29,18 @@ internal abstract class BaseUnit : IUnit
     private protected int MaxAtack { get; set; }
     private protected int Hp { get; set; }
     private protected Tage Tage { get; set; } // ноль - мечник, 1 - стрелок, 2 - маг, 3 - дракон
-    private protected string? Name { get; set; }
+    private protected string Name { get; set; }
      
     public int GetHp => Hp;
     public Tage GetTage => Tage;
-    public string? GetName => Name;
+    public string GetName => Name;
 
     public abstract int Attack();
     public abstract int Heal();
     public abstract bool TakeDamage(int damage);
 
-    private protected int RndAttack()
-    {
-        return new Random().Next(100) % (MaxAtack - MinAtack) + MinAtack;
-    }
+    private protected int RndAttack() => 
+        new Random().Next(100) % (MaxAtack - MinAtack) + MinAtack;
 
     public int CommandSize(Level level)
     {
@@ -64,16 +62,11 @@ internal abstract class BaseUnit : IUnit
         }
     }
 
-    public void SetHp(int hp)
-    {
-        this.Hp += hp;
-    }
+    public void SetHp(int hp) => this.Hp += hp;
 
-    public string ToString()
-    {
-        return Name +
-               ": hp= " + Hp +
-               ", attack= " + MinAtack +
-               "/" + MaxAtack;
-    }
+    public string ToString() =>
+        Name +
+        ": hp= " + Hp +
+        ", attack= " + MinAtack +
+        "/" + MaxAtack;
 }

@@ -1,4 +1,5 @@
-﻿using dzTmaSvet.Units;
+﻿using System.Net.Sockets;
+using dzTmaSvet.Units;
 using dzTmaSvet.Units.FractionsAndUnits;
 
 namespace dzTmaSvet;
@@ -10,6 +11,10 @@ internal class Gameplay
 {
     private List<BaseUnit> _command1;
     private List<BaseUnit> _command2;
+
+    public string ip;
+    public int port;
+    public Socket client;
 
     private BaseUnit _unit1;
     private BaseUnit _unit2;
@@ -29,8 +34,8 @@ internal class Gameplay
         switch (CommandChoice)
         {
             case 1:
-                _command1 = DarkFraction.CreateCommand(_command1, level);
-                _command2 = LightFraction.CreateCommand(_command2, level);
+                _command1 = LightFraction.CreateCommand(_command1, level);
+                _command2 = DarkFraction.CreateCommand(_command2, level);
                 break;
             case 2:
                 _command1 = DarkFraction.CreateCommand(_command1, level);
@@ -59,19 +64,25 @@ internal class Gameplay
         Console.WriteLine();
         while (_command1.Count > 0 && _command2.Count > 0)
         {
-            Console.WriteLine("Атаковать(1) пропустить(2)" +
-                              "одурачить(3)" +
-                              "завербовать(4)" +
-                              "вылечить(5)");
             _unit1 = _command1.First();
             _command1.Remove(_command1.First());
 
             _unit2 = _command2.First();
             _command2.Remove(_command2.First());
 
+
+            Console.WriteLine($"Вы {_unit1.GetName} " +
+                              $"Здоровье {_unit1.GetHp}");
+
+            Console.WriteLine("Атаковать(1) пропустить(2)" +
+                              "одурачить(3)" +
+                              "завербовать(4)" +
+                              "вылечить(5)");
+
+
             Console.WriteLine($"{_unit1.GetName} против {_unit2.GetName}");
             double skipChance = Chance();
-            Console.WriteLine($"Шанс на пропуск: {(int)skipChance*100}%");
+            Console.WriteLine($"Шанс на пропуск: {skipChance}");
             int choice = int.Parse(Console.ReadLine());
             while (choice < 0 || choice > 5)
             {
