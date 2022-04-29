@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище RecepiesModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ingridients">
+          <Key>
+            <PropertyRef Name="IngridientId" />
+          </Key>
+          <Property Name="IngridientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameOfIngridient" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Measurement" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameOfProduct" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recepi">
+          <Key>
+            <PropertyRef Name="RecepiId" />
+          </Key>
+          <Property Name="RecepiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecepisName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Calories" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Recepies.dbo.RecepiIngridientsRelation" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="RecepiIngridientsRelation">
+          <Key>
+            <PropertyRef Name="RecepiId" />
+            <PropertyRef Name="IngridientId" />
+          </Key>
+          <Property Name="RecepiId" Type="int" Nullable="false" />
+          <Property Name="IngridientId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Recepies.dbo.RecepiStepsRelation" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="RecepiStepsRelation">
+          <Key>
+            <PropertyRef Name="RecepiId" />
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="RecepiId" Type="int" Nullable="false" />
+          <Property Name="StepId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Steps">
+          <Key>
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="StepId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="About" Type="nvarchar" MaxLength="100" />
+          <Property Name="Duration" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Ingridien__Produ__5441852A">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Ingridients" Type="Self.Ingridients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Ingridients">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecepiIng__Ingri__5FB337D6">
+          <End Role="Ingridients" Type="Self.Ingridients" Multiplicity="1" />
+          <End Role="RecepiIngridientsRelation" Type="Self.RecepiIngridientsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingridients">
+              <PropertyRef Name="IngridientId" />
+            </Principal>
+            <Dependent Role="RecepiIngridientsRelation">
+              <PropertyRef Name="IngridientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecepiIng__Recep__5EBF139D">
+          <End Role="Recepi" Type="Self.Recepi" Multiplicity="1" />
+          <End Role="RecepiIngridientsRelation" Type="Self.RecepiIngridientsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recepi">
+              <PropertyRef Name="RecepiId" />
+            </Principal>
+            <Dependent Role="RecepiIngridientsRelation">
+              <PropertyRef Name="RecepiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecepiSte__Recep__5AEE82B9">
+          <End Role="Recepi" Type="Self.Recepi" Multiplicity="1" />
+          <End Role="RecepiStepsRelation" Type="Self.RecepiStepsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recepi">
+              <PropertyRef Name="RecepiId" />
+            </Principal>
+            <Dependent Role="RecepiStepsRelation">
+              <PropertyRef Name="RecepiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RecepiSte__StepI__5BE2A6F2">
+          <End Role="Steps" Type="Self.Steps" Multiplicity="1" />
+          <End Role="RecepiStepsRelation" Type="Self.RecepiStepsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Steps">
+              <PropertyRef Name="StepId" />
+            </Principal>
+            <Dependent Role="RecepiStepsRelation">
+              <PropertyRef Name="StepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище RecepiesModelContainer">
+          <EntitySet Name="Ingridients" EntityType="Self.Ingridients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recepi" EntityType="Self.Recepi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Steps" EntityType="Self.Steps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecepiIngridientsRelation" EntityType="Self.RecepiIngridientsRelation" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RecepiIngridientsRelation].[RecepiId] AS [RecepiId], 
+    [RecepiIngridientsRelation].[IngridientId] AS [IngridientId]
+    FROM [dbo].[RecepiIngridientsRelation] AS [RecepiIngridientsRelation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RecepiStepsRelation" EntityType="Self.RecepiStepsRelation" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RecepiStepsRelation].[RecepiId] AS [RecepiId], 
+    [RecepiStepsRelation].[StepId] AS [StepId]
+    FROM [dbo].[RecepiStepsRelation] AS [RecepiStepsRelation]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Ingridien__Produ__5441852A" Association="Self.FK__Ingridien__Produ__5441852A">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Ingridients" EntitySet="Ingridients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecepiIng__Ingri__5FB337D6" Association="Self.FK__RecepiIng__Ingri__5FB337D6">
+            <End Role="Ingridients" EntitySet="Ingridients" />
+            <End Role="RecepiIngridientsRelation" EntitySet="RecepiIngridientsRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecepiIng__Recep__5EBF139D" Association="Self.FK__RecepiIng__Recep__5EBF139D">
+            <End Role="Recepi" EntitySet="Recepi" />
+            <End Role="RecepiIngridientsRelation" EntitySet="RecepiIngridientsRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecepiSte__Recep__5AEE82B9" Association="Self.FK__RecepiSte__Recep__5AEE82B9">
+            <End Role="Recepi" EntitySet="Recepi" />
+            <End Role="RecepiStepsRelation" EntitySet="RecepiStepsRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RecepiSte__StepI__5BE2A6F2" Association="Self.FK__RecepiSte__StepI__5BE2A6F2">
+            <End Role="Steps" EntitySet="Steps" />
+            <End Role="RecepiStepsRelation" EntitySet="RecepiStepsRelation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RecepiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ingridients">
+          <Key>
+            <PropertyRef Name="IngridientId" />
+          </Key>
+          <Property Name="IngridientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOfIngridient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Measurement" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Ingridien__Produ__5441852A" FromRole="Ingridients" ToRole="Products" />
+          <NavigationProperty Name="Recepi" Relationship="Self.RecepiIngridientsRelation" FromRole="Ingridients" ToRole="Recepi" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameOfProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Ingridients" Relationship="Self.FK__Ingridien__Produ__5441852A" FromRole="Products" ToRole="Ingridients" />
+        </EntityType>
+        <EntityType Name="Recepi">
+          <Key>
+            <PropertyRef Name="RecepiId" />
+          </Key>
+          <Property Name="RecepiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecepisName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Calories" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ingridients" Relationship="Self.RecepiIngridientsRelation" FromRole="Recepi" ToRole="Ingridients" />
+          <NavigationProperty Name="Steps" Relationship="Self.RecepiStepsRelation" FromRole="Recepi" ToRole="Steps" />
+        </EntityType>
+        <EntityType Name="Steps">
+          <Key>
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="StepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="About" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" />
+          <NavigationProperty Name="Recepi" Relationship="Self.RecepiStepsRelation" FromRole="Steps" ToRole="Recepi" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Ingridien__Produ__5441852A">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Ingridients" Type="Self.Ingridients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Ingridients">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RecepiIngridientsRelation">
+          <End Role="Ingridients" Type="Self.Ingridients" Multiplicity="*" />
+          <End Role="Recepi" Type="Self.Recepi" Multiplicity="*" />
+        </Association>
+        <Association Name="RecepiStepsRelation">
+          <End Role="Recepi" Type="Self.Recepi" Multiplicity="*" />
+          <End Role="Steps" Type="Self.Steps" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="RecepiesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ingridients" EntityType="Self.Ingridients" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Recepi" EntityType="Self.Recepi" />
+          <EntitySet Name="Steps" EntityType="Self.Steps" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK__Ingridien__Produ__5441852A" Association="Self.FK__Ingridien__Produ__5441852A">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Ingridients" EntitySet="Ingridients" />
+          </AssociationSet>
+          <AssociationSet Name="RecepiIngridientsRelation" Association="Self.RecepiIngridientsRelation">
+            <End Role="Ingridients" EntitySet="Ingridients" />
+            <End Role="Recepi" EntitySet="Recepi" />
+          </AssociationSet>
+          <AssociationSet Name="RecepiStepsRelation" Association="Self.RecepiStepsRelation">
+            <End Role="Recepi" EntitySet="Recepi" />
+            <End Role="Steps" EntitySet="Steps" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RecepiesModelContainer" CdmEntityContainer="RecepiesEntities">
+          <EntitySetMapping Name="Ingridients">
+            <EntityTypeMapping TypeName="RecepiesModel.Ingridients">
+              <MappingFragment StoreEntitySet="Ingridients">
+                <ScalarProperty Name="IngridientId" ColumnName="IngridientId" />
+                <ScalarProperty Name="NameOfIngridient" ColumnName="NameOfIngridient" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Measurement" ColumnName="Measurement" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="RecepiesModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameOfProduct" ColumnName="NameOfProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recepi">
+            <EntityTypeMapping TypeName="RecepiesModel.Recepi">
+              <MappingFragment StoreEntitySet="Recepi">
+                <ScalarProperty Name="RecepiId" ColumnName="RecepiId" />
+                <ScalarProperty Name="RecepisName" ColumnName="RecepisName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Steps">
+            <EntityTypeMapping TypeName="RecepiesModel.Steps">
+              <MappingFragment StoreEntitySet="Steps">
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="About" ColumnName="About" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RecepiesModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="RecepiIngridientsRelation" TypeName="RecepiesModel.RecepiIngridientsRelation" StoreEntitySet="RecepiIngridientsRelation">
+            <EndProperty Name="Ingridients">
+              <ScalarProperty Name="IngridientId" ColumnName="IngridientId" />
+            </EndProperty>
+            <EndProperty Name="Recepi">
+              <ScalarProperty Name="RecepiId" ColumnName="RecepiId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RecepiStepsRelation" TypeName="RecepiesModel.RecepiStepsRelation" StoreEntitySet="RecepiStepsRelation">
+            <EndProperty Name="Recepi">
+              <ScalarProperty Name="RecepiId" ColumnName="RecepiId" />
+            </EndProperty>
+            <EndProperty Name="Steps">
+              <ScalarProperty Name="StepId" ColumnName="StepId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
