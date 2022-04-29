@@ -17,7 +17,7 @@ internal class Angel : BaseUnit
 
     public override int Attack()
     {
-        Console.WriteLine("Колдую!!");
+        Console.WriteLine("олдую!!");
         return RndAttack();
     }
 
