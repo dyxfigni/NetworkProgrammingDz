@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,6 +18,44 @@ namespace RecipeAdviser.Domain
         private static TcpListener listener;
         private static void Main(string[] args)
         {
+            using (RecepiesEntities db = new RecepiesEntities())
+            {
+                List<String> recepis = db.Recepi.Join(db.Ingridients,
+                    r => r.Ingridients,
+                    i => i.Recepi,
+                    (r, i) => );
+
+                //List<String> recepis = db.Recepi.Select(r => new
+                //    {
+                //        Id = r.RecepiId,
+                //        Name = r.RecepisName,
+                //        Ingridients = r.Ingridients
+                //            .Select(i => new
+                //            {
+                //                Name = i.NameOfIngridient,
+                //            }).ToList(;
+                //    })
+
+                List<String> recepis = db.Recepi
+                    .GroupJoin(db.Ingridients,
+                        r => r.RecepiId,
+                        i => i.Recepi.Select(r => r.RecepiId),
+                        (r, i) => new
+                        {
+                            recepiId = r.RecepiId,
+                            recepiName = r.RecepisName,
+                            
+                            Ingridients = r.Ingridients.Join(db.Ingridients,
+                                ingridients => ingridients => ingridientId
+                                ingridient => ingridient.IndgridientId),
+                        }).ToList();
+                //debug
+                foreach (var str in recepis)
+                {
+                    Console.WriteLine(str);
+                }
+            }
+
             listener = null;
             Console.Title = "Server";
             
@@ -91,7 +131,9 @@ namespace RecipeAdviser.Domain
                 try
                 {
                     //Todo выборку сделать 
-                    answer = "Сервер принял и отдает";
+                    
+
+
                 }
                 catch
                 {
