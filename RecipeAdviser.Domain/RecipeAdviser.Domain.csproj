@@ -85,7 +85,7 @@
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserConnection.cs" />
+    <Compile Include="Library\UserConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -119,5 +119,6 @@
       <Name>MessageLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
