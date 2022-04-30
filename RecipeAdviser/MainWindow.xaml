@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeAdviser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="600">
     <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="26,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ListBox x:Name="lstBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="178,22,10,101"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61,31,0,0" TextWrapping="Wrap" Text="Ip" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+            
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="61,82,0,0" TextWrapping="Wrap" Text="Port" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="27,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.5,0.5">
+        </TextBox>
+        <TextBox x:Name="edWrite" HorizontalAlignment="Left" Margin="178,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="412" Height="57" TextChanged="TextBox_TextChanged"/>
+        <Button x:Name="btnCon" Content="Connect" HorizontalAlignment="Left" Margin="26,146,0,0" VerticalAlignment="Top" Height="32" Width="120"/>
+        <Button x:Name="btnDis" Content="Disconnect" HorizontalAlignment="Left" Margin="26,350,0,0" VerticalAlignment="Top" Height="32" Width="120"/>
 
     </Grid>
 </Window>

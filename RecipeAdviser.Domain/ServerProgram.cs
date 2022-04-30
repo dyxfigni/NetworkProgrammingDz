@@ -17,6 +17,7 @@ namespace RecipeAdviser.Domain
     internal class ServerProgram
     {
         private static TcpListener listener;
+        private static List<string> answer;
         private static void Main(string[] args)
         {
             
@@ -123,7 +124,8 @@ namespace RecipeAdviser.Domain
                 {
                     break;
                 }
-                IQueryable<string> answer = null;
+
+                answer = null;
                 try
                 {
                     //Todo выборку сделать 
@@ -134,21 +136,29 @@ namespace RecipeAdviser.Domain
                             .Select(i => i.IngridientId);
 
 
-                        answer = db.Recepi
+                        IQueryable<string> answerrList = null;
+                        answerrList = db.Recepi
                             .Where(r =>
                                 r.Ingridients.Any(i => i.IngridientId
                                                        == ingridientsId.FirstOrDefault()))
                             .Select(r => r.RecepisName);
+
+                        List<string> answerList2 = answerrList.ToList();
+
+                        foreach (string s in answerList2)
+                        {
+                            user.SendMessage(new LanMessage(s));
+                        }
                     }
                 }
                 catch
                 {
                 }
-
-                foreach (string s in answer)
+                finally
                 {
-                    user.SendMessage(new LanMessage(s));
+                    
                 }
+                
             } while (true);
             user.CloseConnection();
         }
