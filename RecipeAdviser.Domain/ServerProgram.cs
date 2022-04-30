@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using MessageLibrary;
+using RecipeAdviser.Domain;
 using UserConnectionLib;
 
 namespace RecipeAdviser.Domain
@@ -18,12 +19,11 @@ namespace RecipeAdviser.Domain
         private static TcpListener listener;
         private static void Main(string[] args)
         {
-            using (RecepiesEntities db = new RecepiesEntities())
-            {
-                List<String> recepis = db.Recepi.Join(db.Ingridients,
-                    r => r.Ingridients,
-                    i => i.Recepi,
-                    (r, i) => );
+            
+                //List<String> recepis = db.Recepi.Join(db.Ingridients,
+                //    r => r.Ingridients,
+                //    i => i.Recepi,
+                //    (r, i) => );
 
                 //List<String> recepis = db.Recepi.Select(r => new
                 //    {
@@ -36,25 +36,21 @@ namespace RecipeAdviser.Domain
                 //            }).ToList(;
                 //    })
 
-                List<String> recepis = db.Recepi
-                    .GroupJoin(db.Ingridients,
-                        r => r.RecepiId,
-                        i => i.Recepi.Select(r => r.RecepiId),
-                        (r, i) => new
-                        {
-                            recepiId = r.RecepiId,
-                            recepiName = r.RecepisName,
+                //List<String> recepis = db.Recepi
+                //    .GroupJoin(db.Ingridients,
+                //        r => r.RecepiId,
+                //        i => i.Recepi.Select(r => r.RecepiId),
+                //        (r, i) => new
+                //        {
+                //            recepiId = r.RecepiId,
+                //            recepiName = r.RecepisName,
                             
-                            Ingridients = r.Ingridients.Join(db.Ingridients,
-                                ingridients => ingridients => ingridientId
-                                ingridient => ingridient.IndgridientId),
-                        }).ToList();
-                //debug
-                foreach (var str in recepis)
-                {
-                    Console.WriteLine(str);
-                }
-            }
+                //            Ingridients = r.Ingridients.Join(db.Ingridients,
+                //                ingridients => ingridients => ingridientId
+                //                ingridient => ingridient.IndgridientId),
+                //        }).ToList();
+
+            //var recepis = db.Ingridients.Select(i => i.Recepi);
 
             listener = null;
             Console.Title = "Server";
@@ -115,31 +111,44 @@ namespace RecipeAdviser.Domain
             var user = new UserConnection(client);
             do
             {
-                var message = user.ReceiveMessage();
-                if (message != null)
+                var messageWrittenByUser = user.ReceiveMessage();
+                if (messageWrittenByUser != null)
                 {
-                    if (message.MessageText.ToLower().Equals("/exit"))
+                    if (messageWrittenByUser.MessageText.ToLower().Equals("/exit"))
                         break;
                     else
-                        Console.WriteLine($"{user.ClientConnection.Client.RemoteEndPoint}>>> {message.MessageText}");
+                        Console.WriteLine($"{user.ClientConnection.Client.RemoteEndPoint}>>> {messageWrittenByUser.MessageText}");
                 }
                 else
                 {
                     break;
                 }
-                var answer = string.Empty;
+                IQueryable<string> answer = null;
                 try
                 {
                     //Todo выборку сделать 
-                    
+                    using (RecepiesEntities db = new RecepiesEntities())
+                    {
+                        var ingridientsId = db.Ingridients
+                            .Where(i => i.Products.NameOfProduct == messageWrittenByUser.ToString())
+                            .Select(i => i.IngridientId);
 
 
+                        answer = db.Recepi
+                            .Where(r =>
+                                r.Ingridients.Any(i => i.IngridientId
+                                                       == ingridientsId.FirstOrDefault()))
+                            .Select(r => r.RecepisName);
+                    }
                 }
                 catch
                 {
                 }
 
-                user.SendMessage(new LanMessage(answer));
+                foreach (string s in answer)
+                {
+                    user.SendMessage(new LanMessage(s));
+                }
             } while (true);
             user.CloseConnection();
         }

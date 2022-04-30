@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
@@ -82,6 +83,19 @@ namespace UserConnectionLib
                 SystemMessage?.Invoke("Отправлено сообщение", message);
             }
         }
+
+        public void SendMessage(IQueryable<string> message)
+        {
+            if (client != null & client.Connected)
+            {
+                foreach (string s in message)
+                {
+                    formatter.Serialize(client.GetStream(), s);
+                    SystemMessage?.Invoke("Отправлено сообщение", s);
+                }
+            }
+        }
+
         public Task SendMessageTask(LanMessage message)
         {
             return Task.Run(() =>
