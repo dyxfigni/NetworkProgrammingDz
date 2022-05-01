@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using MessageLibrary;
@@ -14,90 +16,31 @@ using UserConnectionLib;
 
 namespace RecipeAdviser.Domain
 {
-    internal class ServerProgram
+    public class ServerProgram
     {
-        private static TcpListener listener;
-        private static List<string> answer;
-        private static void Main(string[] args)
+        private static TcpListener _listener;
+        private static List<string> Answer;
+        public static int Port { get; set; }
+        public ServerProgram(int port)
         {
-            
-                //List<String> recepis = db.Recepi.Join(db.Ingridients,
-                //    r => r.Ingridients,
-                //    i => i.Recepi,
-                //    (r, i) => );
-
-                //List<String> recepis = db.Recepi.Select(r => new
-                //    {
-                //        Id = r.RecepiId,
-                //        Name = r.RecepisName,
-                //        Ingridients = r.Ingridients
-                //            .Select(i => new
-                //            {
-                //                Name = i.NameOfIngridient,
-                //            }).ToList(;
-                //    })
-
-                //List<String> recepis = db.Recepi
-                //    .GroupJoin(db.Ingridients,
-                //        r => r.RecepiId,
-                //        i => i.Recepi.Select(r => r.RecepiId),
-                //        (r, i) => new
-                //        {
-                //            recepiId = r.RecepiId,
-                //            recepiName = r.RecepisName,
-                            
-                //            Ingridients = r.Ingridients.Join(db.Ingridients,
-                //                ingridients => ingridients => ingridientId
-                //                ingridient => ingridient.IndgridientId),
-                //        }).ToList();
-
-            //var recepis = db.Ingridients.Select(i => i.Recepi);
-
-            listener = null;
-            Console.Title = "Server";
-            
-            //порт сервера
-            Console.Write("Введите порт для прослушивания: ");
-            var port = int.Parse(Console.ReadLine());
-
-            Task.Run(() =>
-            {
-                //var lines = File.ReadAllLines(@"c:\temp\dictionary.txt");
-                //dict = new Dictionary<string, string>();
-                //foreach (string s in lines)
-                //{
-                //    var l = s.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                //    dict.Add(l[0].Trim('"'), l[l.Length - 1].Trim('"'));
-                //}
-                //Console.WriteLine("\nСловарь загружен!");
-            });
-
-            var serverTask = Task.Run(() => StartServer(port));
-            Console.WriteLine("Нажмите ESC для " +
-                              "остановки сервера...");
-            ConsoleKeyInfo key;
-            do
-            {
-                key = Console.ReadKey();
-            } while (key.Key != ConsoleKey.Escape);
-
-            ShutDownServer();
+            _listener = null;
+            ServerProgram.Port = port;
         }
 
-        private static void StartServer(int port)
+        public void StartServer()
         {
-            if (listener != null)
+            if (_listener != null)
                 return;
 
             // сокет
-            listener = new TcpListener(new IPEndPoint(IPAddress.Any, port));
+            _listener = new TcpListener(new IPEndPoint(IPAddress.Any, Port));
 
             //включение сокета
-            listener.Start(10);
+            _listener.Start(10);
             do
             {
                 //принимает подключение от клиента
-                var client = listener.AcceptTcpClient();
+                var client = _listener.AcceptTcpClient();
 
                 // вывод на экран айпи адрес клиента
                 Console.WriteLine($"Connection " + client.Client.RemoteEndPoint);
@@ -107,7 +50,7 @@ namespace RecipeAdviser.Domain
             } while (true);
         }
 
-        private static void UserMessaging(TcpClient client)
+        public void UserMessaging(TcpClient client)
         {
             var user = new UserConnection(client);
             do
@@ -125,7 +68,7 @@ namespace RecipeAdviser.Domain
                     break;
                 }
 
-                answer = null;
+                Answer = null;
                 try
                 {
                     //Todo выборку сделать 
@@ -163,9 +106,9 @@ namespace RecipeAdviser.Domain
             user.CloseConnection();
         }
 
-        private static void ShutDownServer()
+        public void ShutDownServer()
         {
-            if (listener != null) listener.Stop();
+            if (_listener != null) _listener.Stop();
         }
     }
 }

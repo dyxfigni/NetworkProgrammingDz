@@ -15,23 +15,18 @@
             <ColumnDefinition Width="307*"/>
             <ColumnDefinition Width="493*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Left" Margin="71,2,0,0" TextWrapping="Wrap" Text="Port" VerticalAlignment="Top" Height="28" Width="45" FontSize="20" Grid.Row="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="18,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Height="21" Grid.Row="1"/>
-        <Button Content="Run" HorizontalAlignment="Left" Margin="18,70,0,0" VerticalAlignment="Top" Height="33" Width="151" FontSize="18" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="50,2,0,0" TextWrapping="Wrap" Text="Port" VerticalAlignment="Top" Height="28" Width="46" FontSize="20" Grid.Row="1"/>
+        <TextBox x:Name="edBx1" HorizontalAlignment="Left" Margin="18,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Height="21" Grid.Row="1"/>
+        <Button Content="Run" HorizontalAlignment="Left" Margin="18,70,0,0" VerticalAlignment="Top" Height="33" Width="151" FontSize="18" Grid.Row="1" Click="Button_Click"/>
         <Button Content="Stop" HorizontalAlignment="Left" Margin="18,108,0,0" VerticalAlignment="Top" Height="36" Width="151" FontSize="18" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="18,178,0,0" TextWrapping="Wrap" Text="Status: " VerticalAlignment="Top" Height="28" Width="165" FontSize="20" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="18,223,0,0" TextWrapping="Wrap" Text="Connections: " VerticalAlignment="Top" Height="28" Width="161" FontSize="20" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.127"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBlock.RenderTransform>
+        <TextBlock HorizontalAlignment="Left" Margin="18,178,0,0" TextWrapping="Wrap" Text="Status: " VerticalAlignment="Top" Height="28" Width="110" FontSize="20" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="18,223,0,0" TextWrapping="Wrap" Text="Connections: " VerticalAlignment="Top" Height="28" Width="177" FontSize="20" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+
         </TextBlock>
         <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,29,122,28" Grid.Column="1" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" Text="Output" VerticalAlignment="Top" Height="28" Width="141" FontSize="20" Grid.Column="1" Grid.RowSpan="2"/>
+        <Label Content="{Binding Path=Connections}" Margin="155,222,46,142" Grid.Row="1"/>
+        <Label Content="{Binding Path= name}" HorizontalAlignment="Left" Margin="96,6,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
