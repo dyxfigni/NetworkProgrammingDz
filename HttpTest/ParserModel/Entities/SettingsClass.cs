@@ -8,12 +8,13 @@ namespace HttpTest
 {
     internal class SettingsClass : IParserSettings
     {
-        public SettingsClass(int start, int end)
+        public SettingsClass(int start, int end, string url)
         {
             StartPoint = start;
             EndPoint = end;
+            Url = url;
         }
-        public string BaseUrl { get; set; } 
+        public string Url { get; set; } 
         public string Prefix { get; set; }
         public int StartPoint { get; set; }
         public int EndPoint { get; set; }

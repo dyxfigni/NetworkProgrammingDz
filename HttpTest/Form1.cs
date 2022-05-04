@@ -57,12 +57,12 @@ namespace HttpTest
 
         private void Parser_OnOnNewData(object arg1, string[] arg2)
         {
-            lbHeaders.Items.AddRange(arg2);
-
+            lbSites.Items.AddRange(arg2);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            lbSites.Items.Clear();
             lbHeaders.Items.Clear();
             edContent.Clear();
 
@@ -89,14 +89,11 @@ namespace HttpTest
             try
             {
                 lbHeaders.Items.Clear();
-
-                parser.ParserSettings = new SettingsClass(1, 5);
-
                 Uri uri = new Uri(_address.Append(edAddAddress.Text).ToString());
 
                 lbHeaders.Items.Add($"Addres: {_address}");
 
-                parser.Start();
+                
 
                 ServicePoint point = ServicePointManager.FindServicePoint(uri);
 
@@ -107,7 +104,6 @@ namespace HttpTest
                     lbHeaders.Items.Add($"Connection name:" +
                                         $"{point.ConnectionName}");
                 }
-                
 
                 // сформировали запрос, но не отправили
                 //HttpWebRequest request = WebRequest.Create(edAddAddress.Text)
@@ -120,22 +116,28 @@ namespace HttpTest
                 // получаем ответ 
                 HttpWebResponse response = request.GetResponse()
                     as HttpWebResponse;
-
-                //ParserClass parser = new ParserClass();
                 
-
-                // отображаем каждій заголовок
+                //отображаем каждій заголовок
                 foreach (string header in response.Headers)
                 {
                     lbHeaders.Items.Add($"{header}: " +
                                         $"{response.Headers[header]}");
                 }
 
+                StringBuilder content;
+
                 using (StreamReader reader = new StreamReader(
                            response.GetResponseStream()))
                 {
-                    edContent.Text = reader.ReadToEnd();
+                    content = new StringBuilder(reader.ReadToEnd());
                 }
+
+                
+                edContent.Text = content.ToString();
+                parser.ParserSettings = new SettingsClass(1, 5,
+                    content.ToString());
+                parser.Start();
+
 
                 lbHeaders.Items.Add("Cookies: ");
                 foreach (Cookie cookie in response.Cookies)
@@ -151,7 +153,6 @@ namespace HttpTest
                 edContent.Text = exception.Message;
             }
             
-
             #endregion
         }
 

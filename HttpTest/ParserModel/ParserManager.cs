@@ -12,8 +12,6 @@ namespace HttpTest
         private IParser<T> parser;
         private IParserSettings parserSettings;
 
-        private HtmlLoader loader;
-
         private bool isActive;
 
         public event Action<object, T> OnNewData;
@@ -28,7 +26,6 @@ namespace HttpTest
             get => parserSettings;
             set {
                 parserSettings = value;
-                loader = new HtmlLoader(value);
             }
         }
 
@@ -40,7 +37,6 @@ namespace HttpTest
         public ParserManager(IParser<T> parser)
         {
             this.parser = parser;
-            
         }
 
         public ParserManager(IParser<T> parser,
@@ -63,24 +59,41 @@ namespace HttpTest
 
         private async void Manager()
         {
-            for (int i = parserSettings.StartPoint;
-                 i< parserSettings.EndPoint; i++)
+            //for (int i = parserSettings.StartPoint;
+            //     i< parserSettings.EndPoint; i++)
+            //{
+            //    if (!isActive)
+            //    {
+            //        OnCompleted?.Invoke(this);
+            //        return;
+            //    }
+
+
+            //    var domParser = new HtmlParser();
+            //    var document = await domParser
+            //        .ParseDocumentAsync(parserSettings.Url);
+
+            //    var result = parser.Parse(document);
+
+            //    OnNewData?.Invoke(this, result);
+            //}
+
+            //debug
+            if (!isActive)
             {
-                if (!isActive)
-                {
-                    OnCompleted?.Invoke(this);
-                    return;
-                }
-
-
-                var domParser = new HtmlParser();
-                var document = await domParser
-                    .ParseDocumentAsync(loader.ToString());
-
-                var result = parser.Parse(document);
-
-                OnNewData?.Invoke(this, result);
+                OnCompleted?.Invoke(this);
+                return;
             }
+
+
+            var domParser = new HtmlParser();
+            var document = await domParser
+                .ParseDocumentAsync(parserSettings.Url);
+
+            var result = parser.Parse(document);
+
+            OnNewData?.Invoke(this, result);
+
 
             OnCompleted?.Invoke(this);
             isActive = false;
