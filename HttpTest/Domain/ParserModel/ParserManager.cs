@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AngleSharp;
 using AngleSharp.Html.Parser;
 
 namespace HttpTest
@@ -59,42 +60,24 @@ namespace HttpTest
 
         private async void Manager()
         {
-            //for (int i = parserSettings.StartPoint;
-            //     i< parserSettings.EndPoint; i++)
-            //{
-            //    if (!isActive)
-            //    {
-            //        OnCompleted?.Invoke(this);
-            //        return;
-            //    }
-
-
-            //    var domParser = new HtmlParser();
-            //    var document = await domParser
-            //        .ParseDocumentAsync(parserSettings.Url);
-
-            //    var result = parser.Parse(document);
-
-            //    OnNewData?.Invoke(this, result);
-            //}
-
-            //debug
-            if (!isActive)
+            for (int i = 0;
+                 i < parserSettings.Range; i++)
             {
-                OnCompleted?.Invoke(this);
-                return;
+                if (!isActive)
+                {
+                    OnCompleted?.Invoke(this);
+                    return;
+                }
+
+
+                var domParser = new HtmlParser();
+                var document = await domParser
+                    .ParseDocumentAsync(parserSettings.Url);
+
+                var result = parser.Parse(document);
+
+                OnNewData?.Invoke(this, result);
             }
-
-
-            var domParser = new HtmlParser();
-            var document = await domParser
-                .ParseDocumentAsync(parserSettings.Url);
-
-            var result = parser.Parse(document);
-
-            OnNewData?.Invoke(this, result);
-
-
             OnCompleted?.Invoke(this);
             isActive = false;
 

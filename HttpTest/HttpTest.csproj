@@ -64,14 +64,14 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ParserModel\Interfaces\IParser.cs" />
-    <Compile Include="ParserModel\Interfaces\IParserSettings.cs" />
-    <Compile Include="ParserModel\Entities\ParserClass.cs" />
-    <Compile Include="ParserModel\ParserManager.cs" />
+    <Compile Include="Domain\ParserModel\Interfaces\IParser.cs" />
+    <Compile Include="Domain\ParserModel\Interfaces\IParserSettings.cs" />
+    <Compile Include="Domain\ParserModel\Entities\ParserClass.cs" />
+    <Compile Include="Domain\ParserModel\ParserManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchName.cs" />
-    <Compile Include="ParserModel\Entities\SettingsClass.cs" />
+    <Compile Include="Domain\SearchName.cs" />
+    <Compile Include="Domain\ParserModel\Entities\SettingsClass.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

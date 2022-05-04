@@ -15,10 +15,10 @@ namespace HttpTest
             var list = new List<string>();
 
             var items = document
-                .QuerySelectorAll("a");
-                //.Where(item => item.ClassName != null
-                //               && item.ClassName
-                //                   .Contains(""));
+                .QuerySelectorAll("a")
+                .Where(item => item.ClassName != null
+                               && item.ClassName
+                                   .Contains("lhead"));
 
 
             foreach (IElement item in items)

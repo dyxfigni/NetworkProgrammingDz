@@ -9,8 +9,6 @@ namespace HttpTest
     public interface IParserSettings
     {
         string Url { get; set; }
-        int StartPoint { get; set; }
-        int EndPoint { get; set; }
-
+        int Range { get; set; }
     }
 }

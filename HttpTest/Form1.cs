@@ -16,6 +16,7 @@ namespace HttpTest
     {
         private static StringBuilder _address;
         private ParserManager<string[]> parser;
+        private static int range = 0;
 
         public Form1()
         {
@@ -68,6 +69,11 @@ namespace HttpTest
 
             if (string.IsNullOrWhiteSpace(edAddAddress.Text))
                 return;
+            if (string.IsNullOrWhiteSpace(edRange.Text))
+                range = 1;
+            else
+                range = Int32.Parse(edRange.Text);
+
             #region WebClient
             //if (string.IsNullOrWhiteSpace(edAddAddress.Text))
             //    return;
@@ -85,15 +91,25 @@ namespace HttpTest
 
             #region HttpRequest
 
-
             try
             {
-                lbHeaders.Items.Clear();
-                Uri uri = new Uri(_address.Append(edAddAddress.Text).ToString());
+                Uri uri;
+                if (edAddAddress.Text.Contains("http:"))
+                {
+                    _address.Clear();
+                    uri = new Uri(_address.Append(edAddAddress.Text).ToString());
+                }
+                else
+                {
+                    if (_address.ToString().Contains("http:"))
+                    {
+                        _address.Clear();
+                        _address.Append(AddAdress());
+                    }
+                    uri = new Uri(_address.Append(edAddAddress.Text).ToString());
+                }
 
                 lbHeaders.Items.Add($"Addres: {_address}");
-
-                
 
                 ServicePoint point = ServicePointManager.FindServicePoint(uri);
 
@@ -134,7 +150,9 @@ namespace HttpTest
 
                 
                 edContent.Text = content.ToString();
-                parser.ParserSettings = new SettingsClass(1, 5,
+
+                //работа парсера
+                parser.ParserSettings = new SettingsClass(range,
                     content.ToString());
                 parser.Start();
 
@@ -145,7 +163,6 @@ namespace HttpTest
                     lbHeaders.Items.Add(cookie);
                 }
 
-                //lbHeade
             }
             catch (Exception exception) 
             {
@@ -171,6 +188,16 @@ namespace HttpTest
             searchName = null;
 
             btnLoad.Enabled = true;
+        }
+
+        private string AddAdress()
+        {
+            SearchName searchName = cbSearch.SelectedItem as SearchName;
+
+            if (searchName == null)
+                return "https://www.google.ru/search?q=";
+            else
+                return searchName.Description;
         }
     }
 }
