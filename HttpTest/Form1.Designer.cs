@@ -79,7 +79,7 @@
             this.lbHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbHeaders.FormattingEnabled = true;
-            this.lbHeaders.Location = new System.Drawing.Point(12, 344);
+            this.lbHeaders.Location = new System.Drawing.Point(12, 347);
             this.lbHeaders.Name = "lbHeaders";
             this.lbHeaders.Size = new System.Drawing.Size(323, 95);
             this.lbHeaders.TabIndex = 4;
@@ -88,7 +88,7 @@
             // 
             this.edContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.edContent.Location = new System.Drawing.Point(15, 100);
+            this.edContent.Location = new System.Drawing.Point(12, 100);
             this.edContent.Multiline = true;
             this.edContent.Name = "edContent";
             this.edContent.Size = new System.Drawing.Size(323, 225);
@@ -99,7 +99,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 328);
+            this.label2.Location = new System.Drawing.Point(12, 331);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 5;
@@ -132,7 +132,7 @@
             this.lbSites.FormattingEnabled = true;
             this.lbSites.Location = new System.Drawing.Point(344, 100);
             this.lbSites.Name = "lbSites";
-            this.lbSites.Size = new System.Drawing.Size(264, 342);
+            this.lbSites.Size = new System.Drawing.Size(254, 342);
             this.lbSites.TabIndex = 8;
             // 
             // label4
