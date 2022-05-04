@@ -27,6 +27,12 @@ namespace RecipeAdviser.Domain
             ServerProgram.Port = port;
         }
 
+        static void Main(string[] args)
+        {
+            Task.Run(() => StartServer());
+
+        }
+
         public void StartServer()
         {
             if (_listener != null)
@@ -79,8 +85,7 @@ namespace RecipeAdviser.Domain
                             .Select(i => i.IngridientId);
 
 
-                        IQueryable<string> answerrList = null;
-                        answerrList = db.Recepi
+                        var answerrList = db.Recepi
                             .Where(r =>
                                 r.Ingridients.Any(i => i.IngridientId
                                                        == ingridientsId.FirstOrDefault()))

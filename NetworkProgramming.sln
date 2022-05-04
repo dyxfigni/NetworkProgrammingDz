@@ -25,7 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{26859E0E-9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeAdviserClientTest", "RecipeAdviserClientTest\RecipeAdviserClientTest.csproj", "{DE5407C4-97F2-45CD-8965-FEA5A0447CF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeAdviser.ServerView", "RecipeAdviser.ServerView\RecipeAdviser.ServerView.csproj", "{B2446858-AD83-4827-B3D3-061CA0F441CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeAdviser.ServerView", "RecipeAdviser.ServerView\RecipeAdviser.ServerView.csproj", "{B2446858-AD83-4827-B3D3-061CA0F441CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpTest", "HttpTest\HttpTest.csproj", "{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,18 @@ Global
 		{B2446858-AD83-4827-B3D3-061CA0F441CA}.Release|x64.Build.0 = Release|Any CPU
 		{B2446858-AD83-4827-B3D3-061CA0F441CA}.Release|x86.ActiveCfg = Release|Any CPU
 		{B2446858-AD83-4827-B3D3-061CA0F441CA}.Release|x86.Build.0 = Release|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Debug|x64.Build.0 = Debug|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Debug|x86.Build.0 = Debug|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|x64.ActiveCfg = Release|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|x64.Build.0 = Release|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|x86.ActiveCfg = Release|Any CPU
+		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

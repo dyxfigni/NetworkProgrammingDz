@@ -43,9 +43,8 @@ namespace RecipeAdviser.ServerView
                 Port = Int32.Parse(edBx1.Text);
 
             DataContext = this;
-            
 
-            Task.Run((() => _serverProgram.StartServer()));
+            Task.Run(() => StartServer());
         }
 
         public void StartServer()
@@ -98,10 +97,8 @@ namespace RecipeAdviser.ServerView
                         var ingridientsId = db.Ingridients
                             .Where(i => i.Products.NameOfProduct == messageWrittenByUser.ToString())
                             .Select(i => i.IngridientId);
-
-
-                        IQueryable<string> answerrList = null;
-                        answerrList = db.Recepi
+                        
+                        var answerrList = db.Recepi
                             .Where(r =>
                                 r.Ingridients.Any(i => i.IngridientId
                                                        == ingridientsId.FirstOrDefault()))
@@ -114,6 +111,11 @@ namespace RecipeAdviser.ServerView
                             user.SendMessage(new LanMessage(s));
                         }
                     }
+                    // когда я пытаюсь вывести, оно не выводится, если
+                    // если я пытаюсь сохранить лист в переменную, то 
+                    // все равно переменная будет хранить нуль
+                    // запрос выводится в консоли
+                    // передача листа? 
                 }
                 catch
                 {
