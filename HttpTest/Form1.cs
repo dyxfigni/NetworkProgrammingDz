@@ -15,11 +15,10 @@ namespace HttpTest
     public partial class Form1 : Form
     {
         private static StringBuilder _address;
+        private ParserManager<string[]> parser;
 
         public Form1()
         {
-            
-
             List<SearchName> searchList = new List<SearchName>
             {
                 new SearchName
@@ -34,6 +33,10 @@ namespace HttpTest
                     Description = "https://www.bing.com/search?q="
                 }
             };
+
+            parser = new ParserManager<string[]>(
+                new ParserClass()
+            );
             InitializeComponent();
             btnLoad.Enabled = false;
 
@@ -41,6 +44,21 @@ namespace HttpTest
             cbSearch.DisplayMember = "Name";
 
             cbSearch.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            parser.OnCompleted += Parser_OnCompleted;
+            parser.OnNewData += Parser_OnOnNewData;
+
+        }
+
+        private void Parser_OnCompleted(object obj)
+        {
+            MessageBox.Show("Completed");
+
+        }
+
+        private void Parser_OnOnNewData(object arg1, string[] arg2)
+        {
+            lbHeaders.Items.AddRange(arg2);
+
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -67,14 +85,18 @@ namespace HttpTest
 
             #region HttpRequest
 
+
             try
             {
                 lbHeaders.Items.Clear();
 
+                parser.ParserSettings = new SettingsClass(1, 5);
 
                 Uri uri = new Uri(_address.Append(edAddAddress.Text).ToString());
 
                 lbHeaders.Items.Add($"Addres: {_address}");
+
+                parser.Start();
 
                 ServicePoint point = ServicePointManager.FindServicePoint(uri);
 
@@ -98,6 +120,9 @@ namespace HttpTest
                 // получаем ответ 
                 HttpWebResponse response = request.GetResponse()
                     as HttpWebResponse;
+
+                //ParserClass parser = new ParserClass();
+                
 
                 // отображаем каждій заголовок
                 foreach (string header in response.Headers)
