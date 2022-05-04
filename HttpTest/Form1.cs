@@ -18,6 +18,8 @@ namespace HttpTest
 
         public Form1()
         {
+            
+
             List<SearchName> searchList = new List<SearchName>
             {
                 new SearchName
@@ -33,6 +35,7 @@ namespace HttpTest
                 }
             };
             InitializeComponent();
+            btnLoad.Enabled = false;
 
             cbSearch.DataSource = searchList;
             cbSearch.DisplayMember = "Name";
@@ -42,6 +45,9 @@ namespace HttpTest
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            lbHeaders.Items.Clear();
+            edContent.Clear();
+
             if (string.IsNullOrWhiteSpace(edAddAddress.Text))
                 return;
             #region WebClient
@@ -65,15 +71,10 @@ namespace HttpTest
             {
                 lbHeaders.Items.Clear();
 
-                StringBuilder address = new StringBuilder
-                    ("https://www.google.ru/search?q=");
 
-                Uri uri = new Uri(address.Append(edAddAddress.Text).ToString());
+                Uri uri = new Uri(_address.Append(edAddAddress.Text).ToString());
 
-                lbHeaders.Items.Add($"Addres: {address}");
-                address.Clear();
-                address.Capacity = 0;
-                address = null;
+                lbHeaders.Items.Add($"Addres: {_address}");
 
                 ServicePoint point = ServicePointManager.FindServicePoint(uri);
 
@@ -142,6 +143,8 @@ namespace HttpTest
             else
                 _address = new StringBuilder(searchName.Description);
             searchName = null;
+
+            btnLoad.Enabled = true;
         }
     }
 }
