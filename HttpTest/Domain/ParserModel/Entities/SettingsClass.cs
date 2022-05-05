@@ -13,8 +13,8 @@ namespace HttpTest
             Range = range;
             Url = url;
         }
-        public string Url { get; set; } 
-        public string Prefix { get; set; }
+
+        public string Url { get; set; }
         public int Range { get; set; }
     }
 }

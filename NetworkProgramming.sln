@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeAdviser.ServerView", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpTest", "HttpTest\HttpTest.csproj", "{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatheFilmInfo", "WeatheFilmInfo\WeatheFilmInfo.csproj", "{B66B7422-683A-44D8-83ED-EBC60C4A3930}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,18 @@ Global
 		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|x64.Build.0 = Release|Any CPU
 		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|x86.ActiveCfg = Release|Any CPU
 		{3A1FB628-3483-44C3-A1D8-15F3BA329EDB}.Release|x86.Build.0 = Release|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Debug|x64.Build.0 = Debug|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Debug|x86.Build.0 = Debug|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Release|x64.ActiveCfg = Release|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Release|x64.Build.0 = Release|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Release|x86.ActiveCfg = Release|Any CPU
+		{B66B7422-683A-44D8-83ED-EBC60C4A3930}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,7 +44,6 @@ namespace HttpTest
             IParserSettings parserSettings) : this(parser)
         {
             this.parserSettings = parserSettings;
-
         }
 
         public void Start()
@@ -68,7 +67,6 @@ namespace HttpTest
                     OnCompleted?.Invoke(this);
                     return;
                 }
-
 
                 var domParser = new HtmlParser();
                 var document = await domParser
